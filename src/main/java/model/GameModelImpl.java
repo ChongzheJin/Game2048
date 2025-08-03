@@ -125,12 +125,41 @@ public class GameModelImpl implements GameModel {
                 break;
         }
 
-        this.generateTile();
-
-        return !Arrays.deepEquals(copy, this.board);
+        if (!Arrays.deepEquals(copy, this.board)) {
+            this.generateTile();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void moveRight() {
+        for (int i = 0; i < this.row; i++) {
+            boolean[] merged = new boolean[this.col];
+            for (int j = this.col - 2; j >= 0; j--) {
+                // skip empty positions
+                if (this.board[i][j] == 0) {
+                    continue;
+                }
+                int targetCol = j;
+                // move target to the rightmost empty position
+                while (targetCol < this.col - 1 && this.board[i][targetCol + 1] == 0) {
+                    board[i][targetCol + 1] = board[i][targetCol];
+                    board[i][targetCol] = 0;
+                    targetCol++;
+                }
+
+                // check if the target can be merged
+                if (targetCol < this.col - 1
+                        && !merged[targetCol + 1]
+                        && this.board[i][targetCol] == this.board[i][targetCol + 1]) {
+                    this.board[i][targetCol + 1] *= 2;
+                    this.board[i][targetCol] = 0;
+                    this.score += this.board[i][targetCol + 1];
+                    merged[targetCol + 1] = true;
+                }
+            }
+        }
     }
 
     private void moveLeft() {
@@ -163,9 +192,61 @@ public class GameModelImpl implements GameModel {
     }
 
     private void moveDown() {
+        for (int j = 0; j < this.col; j++) {
+            boolean[] merged = new boolean[this.row];
+            for (int i = this.row - 2; i >= 0; i--) {
+                // skip empty positions
+                if (this.board[i][j] == 0) {
+                    continue;
+                }
+                int targetRow = i;
+                // move target to the downmost empty position
+                while (targetRow < this.row - 1 && this.board[targetRow + 1][j] == 0) {
+                    board[targetRow + 1][j] = board[targetRow][j];
+                    board[targetRow][j] = 0;
+                    targetRow++;
+                }
+
+                // check if the target can be merged
+                if (targetRow < this.row - 1
+                        && !merged[targetRow + 1]
+                        && this.board[targetRow][j] == this.board[targetRow + 1][j]) {
+                    this.board[targetRow + 1][j] *= 2;
+                    this.board[targetRow][j] = 0;
+                    this.score += this.board[targetRow + 1][j];
+                    merged[targetRow + 1] = true;
+                }
+            }
+        }
     }
 
     private void moveUp() {
+        for (int j = 0; j < this.col; j++) {
+            boolean[] merged = new boolean[this.row];
+            for (int i = 1; i < this.row; i++) {
+                // skip empty positions
+                if (this.board[i][j] == 0) {
+                    continue;
+                }
+                int targetRow = i;
+                // move target to the upmost empty position
+                while (targetRow > 0 && this.board[targetRow - 1][j] == 0) {
+                    board[targetRow - 1][j] = board[targetRow][j];
+                    board[targetRow][j] = 0;
+                    targetRow--;
+                }
+
+                // check if the target can be merged
+                if (targetRow > 0
+                        && !merged[targetRow - 1]
+                        && this.board[targetRow][j] == this.board[targetRow - 1][j]) {
+                    this.board[targetRow - 1][j] *= 2;
+                    this.board[targetRow][j] = 0;
+                    this.score += this.board[targetRow - 1][j];
+                    merged[targetRow - 1] = true;
+                }
+            }
+        }
     }
 
     @Override

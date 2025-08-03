@@ -27,10 +27,5 @@ allprojects {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    testImplementation("junit:junit:4.13.1")
 }

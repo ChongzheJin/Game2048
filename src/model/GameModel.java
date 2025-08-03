@@ -2,10 +2,10 @@ package model;
 
 
 /**
- * This interface is used to define behavior of the game. It has a 4*4 board as game board and a score counter. It will
- * start with 2 number blocks(2 or 4) on the board, random location. The game will continue until the player can't make
- * the next move or the player gets a 2048 number block. Player can move all the number blocks in the board once by
- * using keyboard arrow keys(up, down, left, right).
+ * This interface is used to define behavior of the game.
+ * <p>
+ *     It maintains a game board and score. And support operations to move tiles, reset the game, and check game status.
+ * </p>
  *
  * @author Chongzhe Jin
  * @version 1.0, 2025/8/2

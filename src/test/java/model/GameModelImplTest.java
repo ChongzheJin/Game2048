@@ -27,28 +27,28 @@ public class GameModelImplTest {
         // left
         gameModel = new GameModelImpl(0, new int[][]{{2, 0, 0, 0}, {2, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertFalse(gameModel.move(Direction.LEFT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.LEFT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{2, 0, 0, 0}, {2, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
 
         // right
         gameModel = new GameModelImpl(0, new int[][]{{0, 0, 0, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertFalse(gameModel.move(Direction.RIGHT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.RIGHT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 0, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
 
         // up
         gameModel = new GameModelImpl(0, new int[][]{{0, 0, 2, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertFalse(gameModel.move(Direction.UP));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.UP));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 2, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
 
         // down
         gameModel = new GameModelImpl(0, new int[][]{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 2, 2}},
                 new Random(1));
-        assertFalse(gameModel.move(Direction.DOWN));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.DOWN));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 2, 2}}));
     }
@@ -57,7 +57,7 @@ public class GameModelImplTest {
     public void testMoveLeft2Tiles() {
         gameModel = new GameModelImpl(0, new int[][]{{0, 0, 0, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.LEFT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.LEFT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{2, 0, 0, 0}, {2, 0, 0, 0}, {0, 0, 0, 0}, {0, 4, 0, 0}}));
         assertEquals(0, gameModel.getScore());
@@ -67,14 +67,14 @@ public class GameModelImplTest {
     public void testMoveLeftMergeOnce() {
         gameModel = new GameModelImpl(0, new int[][]{{0, 0, 2, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.LEFT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.LEFT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{4, 0, 0, 0}, {2, 0, 0, 0}, {0, 0, 0, 0}, {0, 4, 0, 0}}));
         assertEquals(4, gameModel.getScore());
 
         gameModel = new GameModelImpl(0, new int[][]{{0, 2, 2, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.LEFT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.LEFT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{4, 2, 0, 0}, {2, 0, 0, 4}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
         assertEquals(4, gameModel.getScore());
@@ -84,17 +84,42 @@ public class GameModelImplTest {
     public void testMoveLeftMergeTwice() {
         gameModel = new GameModelImpl(0, new int[][]{{2, 2, 2, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.LEFT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.LEFT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{4, 4, 0, 0}, {2, 0, 0, 4}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
         assertEquals(8, gameModel.getScore());
     }
 
     @Test
+    public void testMoveLeftWin() {
+        gameModel = new GameModelImpl(0, new int[][]{{1024, 1024, 2, 2}, {0, 0, 0, 0}, {0, 0, 0, 0},
+                {0, 0, 0, 0}},
+                new Random(1));
+        assertEquals(Status.WIN ,gameModel.move(Direction.LEFT));
+        assertEquals(Arrays.deepToString(gameModel.getBoard()),
+                Arrays.deepToString(new int[][]{{2048, 4, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 4, 0, 0}}));
+        assertEquals(2052, gameModel.getScore());
+    }
+
+    @Test
+    public void testMoveLeftLose() {
+        gameModel = new GameModelImpl(0, new int[][]{{1024, 2, 4, 8}, {512, 4, 8, 4}, {1024, 2, 4, 2},
+                {512, 4, 4, 64}},
+                new Random(1));
+        assertEquals(Status.LOSE ,gameModel.move(Direction.LEFT));
+        assertEquals(Arrays.deepToString(gameModel.getBoard()),
+                Arrays.deepToString(new int[][]{{1024, 2, 4, 8}, {512, 4, 8, 4}, {1024, 2, 4, 2},
+                        {512, 8, 64, 4}}));
+        assertEquals(8, gameModel.getScore());
+    }
+
+
+
+    @Test
     public void testMoveRight2Tiles() {
         gameModel = new GameModelImpl(0, new int[][]{{0, 2, 0, 0}, {0, 2, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.RIGHT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.RIGHT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 0, 2}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 4, 0, 0}}));
         assertEquals(0, gameModel.getScore());
@@ -104,14 +129,14 @@ public class GameModelImplTest {
     public void testMoveRightMergeOnce() {
         gameModel = new GameModelImpl(0, new int[][]{{0, 2, 2, 0}, {0, 2, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.RIGHT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.RIGHT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 0, 4}, {0, 0, 0, 2}, {0, 0, 0, 0}, {0, 4, 0, 0}}));
         assertEquals(4, gameModel.getScore());
 
         gameModel = new GameModelImpl(0, new int[][]{{0, 2, 2, 2}, {0, 2, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                 new Random(1));
-        assertTrue(gameModel.move(Direction.RIGHT));
+        assertEquals(Status.CONTINUE ,gameModel.move(Direction.RIGHT));
         assertEquals(Arrays.deepToString(gameModel.getBoard()),
                 Arrays.deepToString(new int[][]{{0, 0, 2, 4}, {0, 0, 4, 2}, {0, 0, 0, 0}, {0, 0, 0, 0}}));
         assertEquals(4, gameModel.getScore());

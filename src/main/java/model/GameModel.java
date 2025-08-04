@@ -27,15 +27,7 @@ public interface GameModel {
      * they will merge into one larger number block.
      *
      * @param d one of the four directions
-     * @return true if the move is successful, false otherwise
+     * @return status of the game after the move
      */
-    boolean move(Direction d);
-
-    /**
-     * Determine whether the game is over. The status is LOSE if the player can't make any move; it is WIN if the player
-     * gets a 2048 number block; otherwise it is CONTINUE.
-     *
-     * @return the status of the game
-     */
-    Status isGameOver();
+    Status move(Direction d);
 }

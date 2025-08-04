@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="988a39fd-1338-482a-8e5e-1c4edee6c863" name="更改" comment="finish move left logic, and use Junit4 to test">
+    <list default="true" id="988a39fd-1338-482a-8e5e-1c4edee6c863" name="更改" comment="testing move different direction">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Game2048.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/ConsoleGameView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/GameModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/GameModelImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/GameModelImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/GameModelImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +26,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -37,10 +46,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -56,39 +65,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.GameModelImplTest.executor": "Run",
-    "Gradle.GameModelImplTest.testMove2Tiles.executor": "Run",
-    "Gradle.GameModelImplTest.testMoveMergeOnce.executor": "Run",
-    "Gradle.GameModelImplTest.testMoveMergeTwice.executor": "Run",
-    "Gradle.构建 Game2048.executor": "Run",
-    "JUnit.GameModelImplTest.executor": "Run",
-    "JUnit.GameModelImplTest.testMove2Tiles.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.GameModelImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMove2Tiles.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveLeftLose.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveLeftWin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveMergeOnce.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveMergeTwice.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveNoChange.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveRight2Tiles.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.GameModelImplTest.testMoveRightMergeOnce.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.构建 Game2048.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameModelImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameModelImplTest.testMove2Tiles.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="view" />
       <recent name="model" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -102,7 +117,7 @@
       <recent name="model" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.GameModelImplTest">
+  <component name="RunManager" selected="Gradle.GameModelImplTest.testMoveLeftLose">
     <configuration name="GameModelImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -127,7 +142,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="GameModelImplTest.testMove2Tiles" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GameModelImplTest.testMoveLeftLose" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -140,7 +155,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;model.GameModelImplTest.testMove2Tiles&quot;" />
+            <option value="&quot;model.GameModelImplTest.testMoveLeftLose&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -151,7 +166,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="GameModelImplTest.testMoveMergeOnce" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GameModelImplTest.testMoveLeftWin" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -164,7 +179,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;model.GameModelImplTest.testMoveMergeOnce&quot;" />
+            <option value="&quot;model.GameModelImplTest.testMoveLeftWin&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -175,7 +190,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="GameModelImplTest.testMoveMergeTwice" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GameModelImplTest.testMoveRight2Tiles" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -188,7 +203,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;model.GameModelImplTest.testMoveMergeTwice&quot;" />
+            <option value="&quot;model.GameModelImplTest.testMoveRight2Tiles&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -199,28 +214,37 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="GameModelImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Game2048" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="model" />
-      <option name="MAIN_CLASS_NAME" value="model.GameModelImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="GameModelImplTest.testMoveRightMergeOnce" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;model.GameModelImplTest.testMoveRightMergeOnce&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.GameModelImplTest.testMoveLeftLose" />
+        <item itemvalue="Gradle.GameModelImplTest.testMoveLeftWin" />
         <item itemvalue="Gradle.GameModelImplTest" />
-        <item itemvalue="Gradle.GameModelImplTest.testMoveMergeTwice" />
-        <item itemvalue="Gradle.GameModelImplTest.testMoveMergeOnce" />
-        <item itemvalue="Gradle.GameModelImplTest.testMove2Tiles" />
-        <item itemvalue="JUnit.GameModelImplTest" />
+        <item itemvalue="Gradle.GameModelImplTest.testMoveRightMergeOnce" />
+        <item itemvalue="Gradle.GameModelImplTest.testMoveRight2Tiles" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +274,9 @@
       <workItem from="1754147108141" duration="5320000" />
       <workItem from="1754152710539" duration="164000" />
       <workItem from="1754187897407" duration="20044000" />
-      <workItem from="1754214994854" duration="4731000" />
+      <workItem from="1754214994854" duration="6448000" />
+      <workItem from="1754284155923" duration="5166000" />
+      <workItem from="1754324451264" duration="4034000" />
     </task>
     <task id="LOCAL-00001" summary="finish GameModel interface">
       <option name="closed" value="true" />
@@ -276,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754218438897</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="testing move different direction">
+      <option name="closed" value="true" />
+      <created>1754224850993</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754224850993</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +331,7 @@
     <MESSAGE value="finish GameModel interface" />
     <MESSAGE value="doing GameModelImpl" />
     <MESSAGE value="finish move left logic, and use Junit4 to test" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish move left logic, and use Junit4 to test" />
+    <MESSAGE value="testing move different direction" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing move different direction" />
   </component>
 </project>

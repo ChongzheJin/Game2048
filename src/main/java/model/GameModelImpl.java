@@ -22,7 +22,7 @@ public class GameModelImpl implements GameModel {
     private final Random random;
 
     /**
-     * Create a new game model witha score of 0, a 4*4 board and a random number generator with no seed.
+     * Create a new game model with score of 0, a 4*4 board and a random number generator with no seed.
      */
     public GameModelImpl() {
         this.score = 0;
@@ -104,36 +104,32 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public boolean move(Direction d) {
+    public Status move(Direction d) {
         int[][] copy = this.getBoard();
-        
-        switch (d) {
-            case UP: 
-                this.moveUp();
-                break;
-                
-            case DOWN:
-                this.moveDown();
-                break;
-                
-            case LEFT:
-                this.moveLeft();
-                break;
-                
-            case RIGHT:
-                this.moveRight();
-                break;
+        Status res = switch (d) {
+            case UP -> this.moveUp();
+            case DOWN -> this.moveDown();
+            case LEFT -> this.moveLeft();
+            case RIGHT -> this.moveRight();
+        };
+
+        // check if the board has changed
+        if (!Arrays.deepEquals(copy, this.board)) {
+            // generate a new tile, if tiles actually moved
+            this.generateTile();
         }
 
-        if (!Arrays.deepEquals(copy, this.board)) {
-            this.generateTile();
-            return true;
-        } else {
-            return false;
+        // Check for lose condition: board is full and no moves possible
+        if (res != Status.WIN) {
+            res = this.isLose();
         }
+
+
+        return res;
     }
 
-    private void moveRight() {
+    private Status moveRight() {
+        Status res = Status.CONTINUE;
         for (int i = 0; i < this.row; i++) {
             boolean[] merged = new boolean[this.col];
             for (int j = this.col - 2; j >= 0; j--) {
@@ -156,13 +152,19 @@ public class GameModelImpl implements GameModel {
                     this.board[i][targetCol + 1] *= 2;
                     this.board[i][targetCol] = 0;
                     this.score += this.board[i][targetCol + 1];
+                    if (this.board[i][targetCol + 1] == 2048) {
+                        res = Status.WIN;
+                    }
                     merged[targetCol + 1] = true;
                 }
             }
         }
+
+        return res;
     }
 
-    private void moveLeft() {
+    private Status moveLeft() {
+        Status res = Status.CONTINUE;
         for (int i = 0; i < this.row; i++) {
             boolean[] merged = new boolean[this.col];
             for (int j = 1; j < this.col; j++) {
@@ -185,13 +187,19 @@ public class GameModelImpl implements GameModel {
                     this.board[i][targetCol - 1] *= 2;
                     this.board[i][targetCol] = 0;
                     this.score += this.board[i][targetCol - 1];
+                    if (this.board[i][targetCol - 1] == 2048) {
+                        res = Status.WIN;
+                    }
                     merged[targetCol - 1] = true;
                 }
             }
         }
+        
+        return res;
     }
 
-    private void moveDown() {
+    private Status moveDown() {
+        Status res = Status.CONTINUE;
         for (int j = 0; j < this.col; j++) {
             boolean[] merged = new boolean[this.row];
             for (int i = this.row - 2; i >= 0; i--) {
@@ -200,7 +208,7 @@ public class GameModelImpl implements GameModel {
                     continue;
                 }
                 int targetRow = i;
-                // move target to the downmost empty position
+                // move target to the down most empty position
                 while (targetRow < this.row - 1 && this.board[targetRow + 1][j] == 0) {
                     board[targetRow + 1][j] = board[targetRow][j];
                     board[targetRow][j] = 0;
@@ -214,13 +222,19 @@ public class GameModelImpl implements GameModel {
                     this.board[targetRow + 1][j] *= 2;
                     this.board[targetRow][j] = 0;
                     this.score += this.board[targetRow + 1][j];
+                    if (this.board[targetRow + 1][j] == 2048) {
+                        res = Status.WIN;
+                    }
                     merged[targetRow + 1] = true;
                 }
             }
         }
+
+        return res;
     }
 
-    private void moveUp() {
+    private Status moveUp() {
+        Status res = Status.CONTINUE;
         for (int j = 0; j < this.col; j++) {
             boolean[] merged = new boolean[this.row];
             for (int i = 1; i < this.row; i++) {
@@ -243,14 +257,55 @@ public class GameModelImpl implements GameModel {
                     this.board[targetRow - 1][j] *= 2;
                     this.board[targetRow][j] = 0;
                     this.score += this.board[targetRow - 1][j];
+                    if (this.board[targetRow - 1][j] == 2048) {
+                        res = Status.WIN;
+                    }
                     merged[targetRow - 1] = true;
                 }
             }
         }
+
+        return res;
     }
 
-    @Override
-    public Status isGameOver() {
-        return null;
+    private Status isLose() {
+        boolean isFull = true;
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                if (this.board[i][j] == 0) {
+                    isFull = false;
+                    break;
+                }
+            }
+            if (!isFull) break;
+        }
+
+        if (isFull) {
+            boolean canMove = isCanMove();
+
+            if (!canMove) {
+                return Status.LOSE;
+            }
+        }
+
+        return Status.CONTINUE;
+    }
+
+    private boolean isCanMove() {
+        boolean canMove = false;
+        // Check if any moves are possible
+        for (int i = 0; i < this.row && !canMove; i++) {
+            for (int j = 0; j < this.col && !canMove; j++) {
+                // Check right
+                if (j < this.col - 1 && this.board[i][j] == this.board[i][j + 1]) {
+                    canMove = true;
+                }
+                // Check down
+                else if (i < this.row - 1 && this.board[i][j] == this.board[i + 1][j]) {
+                    canMove = true;
+                }
+            }
+        }
+        return canMove;
     }
 }

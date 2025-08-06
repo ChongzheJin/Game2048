@@ -23,11 +23,11 @@ public class ConsoleGameView implements GameView {
 
     @Override
     public String readInput() {
-        System.out.println("Please enter ur move or reset: ");
+        System.out.println("Please enter ur command: ");
         if (scanner.hasNext()) {
             return scanner.next().trim();
         }
-        return null;
+        return "";
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ConsoleGameView implements GameView {
         System.out.println("U can view the help by entering \"help\".");
         System.out.println("U can quit the game by entering \"quit\".");
         System.out.println("U will win the game, if u get a 2048 tile.");
-        System.out.println("Let's begin!");
+        System.out.println("Let's begin!\n");
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ConsoleGameView implements GameView {
         System.out.println("U can reset the game by entering \"reset\".");
         System.out.println("U can view the help by entering \"help\".");
         System.out.println("U can quit the game by entering \"quit\".");
-        System.out.println("U will win the game, if u get a 2048 tile.");
+        System.out.println("U will win the game, if u get a 2048 tile.\n");
     }
 
     @Override
@@ -60,6 +60,7 @@ public class ConsoleGameView implements GameView {
                 System.out.print(i + " ");
                 System.out.print("|");
             }
+            System.out.println();
         }
     }
 
@@ -69,10 +70,12 @@ public class ConsoleGameView implements GameView {
             case WIN:
                 System.out.println("Your score: " + score);
                 System.out.println("Congratulations! You win the game!");
+                System.out.println("U can reset the game to replay.");
                 break;
             case LOSE:
                 System.out.println("Your score: " + score);
                 System.out.println("Sorry, you lose the game.");
+                System.out.println("U can reset the game to replay.");
                 break;
             case CONTINUE:
                 break;

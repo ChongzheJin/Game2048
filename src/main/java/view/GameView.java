@@ -2,7 +2,6 @@ package view;
 
 import model.Status;
 
-import java.io.IOException;
 
 /**
  * This interface is used to define the view of the game.

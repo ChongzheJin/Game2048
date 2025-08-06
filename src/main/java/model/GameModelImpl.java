@@ -64,11 +64,12 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void reset() {
+    public Status reset() {
         this.score = 0;
         this.board = new int[this.col][this.row];
         this.generateTile();
         this.generateTile();
+        return Status.CONTINUE;
     }
 
     // generate a tile in the board randomly

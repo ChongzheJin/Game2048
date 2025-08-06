@@ -8,7 +8,7 @@ package model;
  * </p>
  *
  * @author Chongzhe Jin
- * @version 1.0, 2025/8/2
+ * @version 3.0, 2025/8/6
  * @since 2025/8/2 23:22
  */
 public interface GameModel {
@@ -19,7 +19,7 @@ public interface GameModel {
     /**
      * Reset the game to initial state.
      */
-    void reset();
+    Status reset();
 
     /**
      * Move all number blocks in the game board in one direction, as far as they can go. They can be stopped by boarder
